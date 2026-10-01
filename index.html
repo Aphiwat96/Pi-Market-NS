@@ -14,33 +14,57 @@
       min-height: 100vh;
     }
     .container { max-width: 400px; margin: 0 auto; }
+    .logo { font-size: 3rem; margin-bottom: 1rem; }
     h1 { color: #6D28D9; font-size: 1.8rem; margin-bottom: 0.5rem; }
     p { color: #6B7280; margin-bottom: 2rem; }
     button { 
       width: 100%; padding: 1rem; font-size: 1.1rem; 
       background: #6D28D9; color: white; border: none; 
       border-radius: 14px; cursor: pointer; font-weight: 600;
+      transition: 0.2s;
     }
-    button:disabled { background: #A78BFA; }
+    button:hover { background: #5B21B6; }
+    button:disabled { background: #A78BFA; cursor: not-allowed; }
     #status { 
       margin-top: 2rem; padding: 1.5rem; border-radius: 12px; 
       background: white; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
     .ok { border-left: 4px solid #10B981; }
     .err { border-left: 4px solid #EF4444; }
+    .info { border-left: 4px solid #3B82F6; }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="logo">🛍️</div>
     <h1>Pi Market-NS</h1>
     <p>ยินดีต้อนรับ เข้าสู่ระบบด้วย Pi</p>
+
     <button id="btnLogin">เข้าสู่ระบบด้วย Pi</button>
-    <div id="status"></div>
+
+    <div id="status" class="info">
+      ⏳ กำลังโหลดระบบ Pi...
+    </div>
   </div>
 
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script src="https://sdk.minepi.com/pi-sdk.js" onload="sdkLoaded()" onerror="sdkError()"></script>
   <script>
-    Pi.init({ version: "2.0" });
+    let sdkReady = false;
+
+    function sdkLoaded() {
+      try {
+        Pi.init({ version: "2.0" });
+        sdkReady = true;
+        showStatus('✅ ระบบพร้อมแล้ว! กดปุ่มด้านบน', true);
+      } catch (e) {
+        showStatus('❌ เริ่มต้นระบบไม่สำเร็จ: ' + e.message, false);
+      }
+    }
+
+    function sdkError() {
+      showStatus('❌ ไม่สามารถเชื่อมต่อกับระบบ Pi ได้<br>ตรวจสอบการเชื่อมต่อแล้วลองใหม่อีกครั้ง', false);
+    }
+
     const btnLogin = document.getElementById('btnLogin');
     const statusDiv = document.getElementById('status');
 
@@ -51,15 +75,29 @@
     }
 
     btnLogin.onclick = function() {
+      if (!sdkReady) {
+        showStatus('⏳ ระบบยังไม่พร้อม รอสักครู่แล้วลองใหม่', null);
+        return;
+      }
+
       btnLogin.disabled = true;
       btnLogin.innerText = 'กำลังตรวจสอบ...';
+      showStatus('⏳ กำลังขออนุญาตเข้าถึงบัญชี Pi...', null);
 
       Pi.authenticate(['username'], function(res) {
         if (res.success) {
-          showStatus('✅ เชื่อมต่อสำเร็จ!<br>ได้รับข้อมูลจาก Pi แล้ว', true);
+          showStatus(`
+            ✅ เชื่อมต่อสำเร็จ!<br><br>
+            ยินดีต้อนรับสู่ Pi Market-NS 🎉<br>
+            ได้รับข้อมูลจากระบบเรียบร้อยแล้ว
+          `, true);
           console.log('Token:', res.accessToken);
         } else {
-          showStatus('❌ ไม่สำเร็จ<br>สาเหตุ: ' + (res.error?.message || 'ไม่ทราบสาเหตุ'), false);
+          showStatus(`
+            ❌ ไม่สำเร็จ<br><br>
+            สาเหตุ: ${res.error?.message || 'ไม่ทราบสาเหตุ'}<br>
+            ลองปิดหน้านี้แล้วเข้าใหม่อีกครั้ง
+          `, false);
         }
         btnLogin.disabled = false;
         btnLogin.innerText = 'เข้าสู่ระบบด้วย Pi';
