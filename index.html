@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pi Market-NS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, sans-serif; 
+      text-align: center; 
+      padding: 3rem 1.5rem; 
+      background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
+      min-height: 100vh;
+    }
+    .container { max-width: 400px; margin: 0 auto; }
+    h1 { color: #6D28D9; font-size: 1.8rem; margin-bottom: 0.5rem; }
+    p { color: #6B7280; margin-bottom: 2rem; }
+    button { 
+      width: 100%; padding: 1rem; font-size: 1.1rem; 
+      background: #6D28D9; color: white; border: none; 
+      border-radius: 14px; cursor: pointer; font-weight: 600;
+    }
+    button:disabled { background: #A78BFA; }
+    #status { 
+      margin-top: 2rem; padding: 1.5rem; border-radius: 12px; 
+      background: white; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .ok { border-left: 4px solid #10B981; }
+    .err { border-left: 4px solid #EF4444; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pi Market-NS</h1>
+    <p>ยินดีต้อนรับ เข้าสู่ระบบด้วย Pi</p>
+    <button id="btnLogin">เข้าสู่ระบบด้วย Pi</button>
+    <div id="status"></div>
+  </div>
 
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script>
+    Pi.init({ version: "2.0" });
+    const btnLogin = document.getElementById('btnLogin');
+    const statusDiv = document.getElementById('status');
+
+    function showStatus(text, isOk) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = isOk ? 'ok' : 'err';
+      statusDiv.innerHTML = text;
+    }
+
+    btnLogin.onclick = function() {
+      btnLogin.disabled = true;
+      btnLogin.innerText = 'กำลังตรวจสอบ...';
+
+      Pi.authenticate(['username'], function(res) {
+        if (res.success) {
+          showStatus('✅ เชื่อมต่อสำเร็จ!<br>ได้รับข้อมูลจาก Pi แล้ว', true);
+          console.log('Token:', res.accessToken);
+        } else {
+          showStatus('❌ ไม่สำเร็จ<br>สาเหตุ: ' + (res.error?.message || 'ไม่ทราบสาเหตุ'), false);
+        }
+        btnLogin.disabled = false;
+        btnLogin.innerText = 'เข้าสู่ระบบด้วย Pi';
+      });
+    };
+  </script>
+</body>
+</html>
