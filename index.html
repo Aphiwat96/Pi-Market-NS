@@ -4,78 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pi Market-NS</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+    body{background:linear-gradient(135deg,#6B21A8,#22D381);min-height:100vh;color:white;}
+    .header{padding:1rem;display:flex;align-items:center;justify-content:space-between;}
+    .logo-area{display:flex;align-items:center;gap:0.75rem;}
+    .logo-img{width:40px;height:40px;border-radius:8px;object-fit:contain;}
+    .logo-placeholder{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:1.2rem;}
+    .app-name{font-size:1.25rem;font-weight:bold;}
+    .chat-icon{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .hero{padding:1.5rem;background:rgba(255,255,255,0.1);margin:1rem;border-radius:16px;text-align:center;}
+    .hero-main-logo{width:160px;margin:0 auto 1rem;display:block;}
+    .hero h1{font-size:1.5rem;margin-bottom:0.5rem;}
+    .hero p{opacity:0.9;}
+    .search-bar{margin:1rem;padding:0.875rem;background:white;border-radius:999px;color:#333;}
+    .section-title{padding:0 1rem 0.5rem;font-size:1.125rem;font-weight:bold;}
+    .cat-scroll{display:flex;gap:0.75rem;overflow-x:auto;padding:0 1rem 1rem;}
+    .cat{white-space:nowrap;padding:0.75rem 1.25rem;background:rgba(255,255,255,0.15);border:none;border-radius:12px;color:white;font-size:0.9rem;}
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.25);display:flex;justify-content:space-around;padding:0.75rem 0;}
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:0.25rem;font-size:0.75rem;opacity:0.7;}
+    .nav-item.active{opacity:1;font-weight:bold;}
+  </style>
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <div class="brand">
-        <img src="https://i.imgur.com/KzXQw8L.png" alt="Pi Market-NS Logo" class="brand-logo">
-        <span>Pi Market-NS</span>
-      </div>
-      <button class="icon-btn" onclick="goToPage('chat')">💬</button>
-    </header>
 
-    <main class="content">
-      <section id="page-home" class="page active">
-        <div class="welcome">
-          <h1>ยินดีต้อนรับสู่ Pi Market-NS</h1>
-          <p>ตลาดซื้อขายสินค้าชุมชนในระบบ Pi Ecosystem</p>
-        </div>
-        <input type="text" class="search" placeholder="ค้นหาสินค้า...">
-        <div class="section">
-          <h2 class="sec-title">หมวดหมู่สินค้า</h2>
-          <div class="cat-scroll-wrapper">
-            <div class="cat-scroll">
-              <button class="cat">OTOP</button>
-              <button class="cat">การเกษตร</button>
-              <button class="cat">อาหารแปรรูป</button>
-              <button class="cat">งานฝีมือ</button>
-              <button class="cat">เสื้อผ้า-แฟชั่น</button>
-              <button class="cat">ของใช้ในบ้าน</button>
-              <button class="cat">อิเล็กทรอนิกส์</button>
-              <button class="cat">สุขภาพ-สมุนไพร</button>
-              <button class="cat">สินค้าพื้นเมือง</button>
-              <button class="cat">อื่นๆ</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="page-cart" class="page">
-        <h2 class="page-title">🛒 ตะกร้าสินค้า</h2>
-        <p class="empty-text">ยังไม่มีสินค้าในตะกร้า</p>
-      </section>
-
-      <section id="page-notifications" class="page">
-        <h2 class="page-title">🔔 การแจ้งเตือน</h2>
-        <p class="empty-text">ยังไม่มีการแจ้งเตือน</p>
-        <p class="desc-text">ข่าวสารและสถานะคำสั่งซื้อจะแสดงที่นี่</p>
-      </section>
-
-      <section id="page-chat" class="page">
-        <h2 class="page-title">💬 การสนทนา</h2>
-        <p class="empty-text">ยังไม่มีการสนทนา</p>
-        <p class="desc-text">เมื่อคุณคุยกับผู้ขายจะแสดงที่นี่</p>
-      </section>
-
-      <section id="page-profile" class="page">
-        <h2 class="page-title">👤 โปรไฟล์</h2>
-        <div class="profile-box">
-          <p class="profile-label">บัญชี Pi Market-NS</p>
-          <p class="profile-id">PM-XXXXXXXX</p>
-          <p class="profile-status">สถานะ: รอเชื่อมต่อ Pi</p>
-        </div>
-      </section>
-    </main>
-
-    <nav class="bottom-nav">
-      <a class="nav-item active" data-page="home" href="#">⌂<br>หน้าแรก</a>
-      <a class="nav-item" data-page="cart" href="#">🛒<br>ตะกร้า</a>
-      <a class="nav-item" data-page="notifications" href="#">🔔<br>แจ้งเตือน</a>
-      <a class="nav-item" data-page="profile" href="#">👤<br>โปรไฟล์</a>
-    </nav>
+  <!-- === ส่วนหัว: โลโก้เล็ก + ชื่อแอป === -->
+  <div class="header">
+    <div class="logo-area">
+      <!-- ถ้ามีไฟล์รูปแล้ว เปลี่ยนเป็น <img src="ชื่อไฟล์.png" alt="Logo" class="logo-img"> -->
+      <div class="logo-placeholder">P</div>
+      <span class="app-name">Pi Market-NS</span>
+    </div>
+    <div class="chat-icon">💬</div>
   </div>
-  <script src="script.js"></script>
+
+  <!-- === โลโก้ใหญ่ + ข้อความต้อนรับ === -->
+  <div class="hero">
+    <!-- ถ้ามีไฟล์รูปแล้ว เปลี่ยนเป็น <img src="ชื่อไฟล์.png" alt="Pi Market-NS" class="hero-main-logo"> -->
+    <div style="font-size:3rem;font-weight:bold;padding:2rem 0;">Pi Market-NS</div>
+    <h1>ยินดีต้อนรับสู่ Pi Market-NS</h1>
+    <p>ตลาดซื้อขายสินค้าชุมชนในระบบ Pi Ecosystem</p>
+  </div>
+
+  <!-- === ช่องค้นหา === -->
+  <div class="search-bar">ค้นหาสินค้า...</div>
+
+  <!-- === หมวดหมู่ครบ 10 ตามคัมภีร์ === -->
+  <div class="section-title">หมวดหมู่สินค้า</div>
+  <div class="cat-scroll">
+    <button class="cat">1. OTOP / ชุมชน / แปรรูป</button>
+    <button class="cat">2. เกษตร</button>
+    <button class="cat">3. บ้านและเครื่องใช้ไฟฟ้า</button>
+    <button class="cat">4. เครื่องเขียนและการเรียนรู้</button>
+    <button class="cat">5. เสื้อผ้าและแฟชั่น</button>
+    <button class="cat">6. เครื่องประดับ</button>
+    <button class="cat">7. Electronics / IT</button>
+    <button class="cat">8. เครื่องมือและอะไหล่</button>
+    <button class="cat">9. ของเล่น</button>
+    <button class="cat">10. มือสอง / Re-commerce</button>
+  </div>
+
+  <!-- === เมนูล่าง === -->
+  <div class="bottom-nav">
+    <div class="nav-item active">🏠<br>หน้าแรก</div>
+    <div class="nav-item">🛒<br>ตะกร้า</div>
+    <div class="nav-item">🔔<br>แจ้งเตือน</div>
+    <div class="nav-item">👤<br>โปรไฟล์</div>
+  </div>
+
 </body>
 </html>
