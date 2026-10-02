@@ -8,55 +8,94 @@
 </head>
 <body>
   <div class="app">
+    <!-- ส่วนหัว: โลโก้ซ้าย | แชทขวา -->
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">π</div>
+        <img src="public/logo.png" alt="Pi Market-NS Logo" class="brand-logo">
         <span>Pi Market-NS</span>
       </div>
-      <button class="icon-btn">🔔</button>
+      <button class="icon-btn" onclick="goToPage('chat')">💬</button>
     </header>
 
     <main class="content">
-      <section class="welcome">
-        <h1>ยินดีต้อนรับสู่ Pi Market-NS</h1>
-        <p>ตลาดซื้อขายสินค้าในระบบ Pi Ecosystem</p>
-      </section>
+      <!-- หน้าแรก -->
+      <section id="page-home" class="page active">
+        <div class="welcome">
+          <h1>ยินดีต้อนรับสู่ Pi Market-NS</h1>
+          <p>ตลาดซื้อขายสินค้าในระบบ Pi Ecosystem</p>
+        </div>
 
-      <input type="text" class="search" placeholder="ค้นหาสินค้า...">
+        <input type="text" class="search" placeholder="ค้นหาสินค้า...">
 
-      <section class="section">
-        <h2 class="sec-title">หมวดหมู่สินค้า</h2>
-        <div class="cat-grid">
-          <button class="cat">สินค้าชุมชน</button>
-          <button class="cat">การเกษตร</button>
-          <button class="cat">อิเล็กทรอนิกส์</button>
-          <button class="cat">เสื้อผ้า-แฟชั่น</button>
+        <div class="section">
+          <h2 class="sec-title">หมวดหมู่สินค้า</h2>
+          <div class="cat-scroll-wrapper">
+            <div class="cat-scroll">
+              <button class="cat" onclick="alert('OTOP — เร็วๆ นี้!')">OTOP</button>
+              <button class="cat" onclick="alert('การเกษตร — เร็วๆ นี้!')">การเกษตร</button>
+              <button class="cat" onclick="alert('อิเล็กทรอนิกส์ — เร็วๆ นี้!')">อิเล็กทรอนิกส์</button>
+              <button class="cat" onclick="alert('เสื้อผ้า-แฟชั่น — เร็วๆ นี้!')">เสื้อผ้า-แฟชั่น</button>
+              <button class="cat" onclick="alert('อาหาร-แปรรูป — เร็วๆ นี้!')">อาหาร-แปรรูป</button>
+              <button class="cat" onclick="alert('งานฝีมือ — เร็วๆ นี้!')">งานฝีมือ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="sec-title">สินค้าแนะนำ</h2>
+          <div class="prod-grid">
+            <div class="prod-card" onclick="alert('สินค้าตัวอย่าง — เร็วๆ นี้!')">
+              <div class="prod-img">📦</div>
+              <div class="prod-name">สินค้าตัวอย่าง</div>
+              <div class="prod-price">π 10</div>
+            </div>
+            <div class="prod-card" onclick="alert('สินค้าชุมชน — เร็วๆ นี้!')">
+              <div class="prod-img">🌿</div>
+              <div class="prod-name">สินค้าชุมชน</div>
+              <div class="prod-price">π 15</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="section">
-        <h2 class="sec-title">สินค้าแนะนำ</h2>
-        <div class="prod-grid">
-          <div class="prod-card">
-            <div class="prod-img">📦</div>
-            <div class="prod-name">สินค้าตัวอย่าง</div>
-            <div class="prod-price">π 10</div>
-          </div>
-          <div class="prod-card">
-            <div class="prod-img">🌿</div>
-            <div class="prod-name">สินค้าชุมชน</div>
-            <div class="prod-price">π 15</div>
-          </div>
+      <!-- หน้าตะกร้า -->
+      <section id="page-cart" class="page">
+        <h2 class="page-title">🛒 ตะกร้าสินค้า</h2>
+        <p class="empty-text">ยังไม่มีสินค้าในตะกร้า</p>
+        <p class="desc-text">เมื่อคุณเลือกสินค้า จะปรากฏที่นี่</p>
+      </section>
+
+      <!-- หน้าแชท -->
+      <section id="page-chat" class="page">
+        <h2 class="page-title">💬 การสนทนา</h2>
+        <p class="empty-text">ยังไม่มีการสนทนา</p>
+        <p class="desc-text">เมื่อคุณสนทนากับผู้ขาย จะแสดงที่นี่</p>
+      </section>
+
+      <!-- หน้าโปรไฟล์ -->
+      <section id="page-profile" class="page">
+        <h2 class="page-title">👤 โปรไฟล์</h2>
+        <div class="profile-box">
+          <p class="profile-label">บัญชี Pi Market-NS</p>
+          <p class="profile-id">PM-XXXXXXXX</p>
+          <p class="profile-status">สถานะ: รอเชื่อมต่อ Pi</p>
+          <hr class="divider">
+          <p class="profile-menu">📋 รายการสั่งซื้อ</p>
+          <p class="profile-menu">💰 ยอดคงเหลือ</p>
+          <p class="profile-menu">⚙️ การตั้งค่า</p>
         </div>
       </section>
     </main>
 
+    <!-- เมนูล่าง: หน้าแรก | ตะกร้า | กระดิ่ง | โปรไฟล์ -->
     <nav class="bottom-nav">
-      <a class="nav-item active" href="#">⌂<br>หน้าแรก</a>
-      <a class="nav-item" href="#">🛒<br>ตะกร้า</a>
-      <a class="nav-item" href="#">💬<br>แชท</a>
-      <a class="nav-item" href="#">👤<br>โปรไฟล์</a>
+      <a class="nav-item active" data-page="home" href="#">⌂<br>หน้าแรก</a>
+      <a class="nav-item" data-page="cart" href="#">🛒<br>ตะกร้า</a>
+      <a class="nav-item" data-page="chat" href="#">🔔<br>แจ้งเตือน</a>
+      <a class="nav-item" data-page="profile" href="#">👤<br>โปรไฟล์</a>
     </nav>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
