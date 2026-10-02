@@ -1,108 +1,366 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pi Market-NS</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, sans-serif; 
-      text-align: center; 
-      padding: 3rem 1.5rem; 
-      background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
-      min-height: 100vh;
-    }
-    .container { max-width: 400px; margin: 0 auto; }
-    .logo { font-size: 3rem; margin-bottom: 1rem; }
-    h1 { color: #6D28D9; font-size: 1.8rem; margin-bottom: 0.5rem; }
-    p { color: #6B7280; margin-bottom: 2rem; }
-    button { 
-      width: 100%; padding: 1rem; font-size: 1.1rem; 
-      background: #6D28D9; color: white; border: none; 
-      border-radius: 14px; cursor: pointer; font-weight: 600;
-      transition: 0.2s;
-    }
-    button:hover { background: #5B21B6; }
-    button:disabled { background: #A78BFA; cursor: not-allowed; }
-    #status { 
-      margin-top: 2rem; padding: 1.5rem; border-radius: 12px; 
-      background: white; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .ok { border-left: 4px solid #10B981; }
-    .err { border-left: 4px solid #EF4444; }
-    .info { border-left: 4px solid #3B82F6; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="logo">🛍️</div>
-    <h1>Pi Market-NS</h1>
-    <p>ยินดีต้อนรับ เข้าสู่ระบบด้วย Pi</p>
+:root {
+  /* === สีหลักตามแบบที่ออกแบบ === */
+  --purple-dark: #5B21B6;
+  --purple-mid: #7C3AED;
+  --purple-light: #A78BFA;
+  --green-main: #4ADE80;
+  --green-light: #86EFAC;
+  --bg-gradient-start: #5B21B6;
+  --bg-gradient-end: #4ADE80;
 
-    <button id="btnLogin">เข้าสู่ระบบด้วย Pi</button>
+  /* === สีรอง === */
+  --text-dark: #1F2937;
+  --text-light: #E5E7EB;
+  --muted: #D1D5DB;
+  --white: #FFFFFF;
+  --surface: rgba(255, 255, 255, 0.95);
+  --surface-soft: rgba(255, 255, 255, 0.15);
+  --border: rgba(255, 255, 255, 0.2);
+  --danger: #EF4444;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+}
 
-    <div id="status" class="info">
-      ⏳ กำลังโหลดระบบ Pi...
-    </div>
-  </div>
+* {
+  box-sizing: border-box;
+}
 
-  <script src="https://sdk.minepi.com/pi-sdk.js" onload="sdkLoaded()" onerror="sdkError()"></script>
-  <script>
-    let sdkReady = false;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  /* พื้นหลังไล่สีม่วง-เขียวตรงแบบ */
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  background-attachment: fixed;
+  color: var(--white);
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
 
-    function sdkLoaded() {
-      try {
-        Pi.init({ version: "2.0" });
-        sdkReady = true;
-        showStatus('✅ ระบบพร้อมแล้ว! กดปุ่มด้านบน', true);
-      } catch (e) {
-        showStatus('❌ เริ่มต้นระบบไม่สำเร็จ: ' + e.message, false);
-      }
-    }
+body {
+  padding-bottom: 78px;
+}
 
-    function sdkError() {
-      showStatus('❌ ไม่สามารถเชื่อมต่อกับระบบ Pi ได้<br>ตรวจสอบการเชื่อมต่อแล้วลองใหม่อีกครั้ง', false);
-    }
+button,
+input {
+  font: inherit;
+}
 
-    const btnLogin = document.getElementById('btnLogin');
-    const statusDiv = document.getElementById('status');
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-    function showStatus(text, isOk) {
-      statusDiv.style.display = 'block';
-      statusDiv.className = isOk ? 'ok' : 'err';
-      statusDiv.innerHTML = text;
-    }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-    btnLogin.onclick = function() {
-      if (!sdkReady) {
-        showStatus('⏳ ระบบยังไม่พร้อม รอสักครู่แล้วลองใหม่', null);
-        return;
-      }
+.app {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
 
-      btnLogin.disabled = true;
-      btnLogin.innerText = 'กำลังตรวจสอบ...';
-      showStatus('⏳ กำลังขออนุญาตเข้าถึงบัญชี Pi...', null);
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
 
-      Pi.authenticate(['username'], function(res) {
-        if (res.success) {
-          showStatus(`
-            ✅ เชื่อมต่อสำเร็จ!<br><br>
-            ยินดีต้อนรับสู่ Pi Market-NS 🎉<br>
-            ได้รับข้อมูลจากระบบเรียบร้อยแล้ว
-          `, true);
-          console.log('Token:', res.accessToken);
-        } else {
-          showStatus(`
-            ❌ ไม่สำเร็จ<br><br>
-            สาเหตุ: ${res.error?.message || 'ไม่ทราบสาเหตุ'}<br>
-            ลองปิดหน้านี้แล้วเข้าใหม่อีกครั้ง
-          `, false);
-        }
-        btnLogin.disabled = false;
-        btnLogin.innerText = 'เข้าสู่ระบบด้วย Pi';
-      });
-    };
-  </script>
-</body>
-</html>
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  color: white;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--purple-dark), var(--green-main));
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  font-size: 21px;
+  color: white;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.content {
+  padding: 20px 16px;
+}
+
+.welcome {
+  margin: 4px 0 24px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 24px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.welcome h1 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  color: white;
+}
+
+.welcome p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.search {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  padding: 14px 20px;
+  outline: none;
+  color: var(--text-dark);
+}
+
+.search:focus {
+  border-color: var(--green-main);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 19px;
+  color: white;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.category {
+  padding: 16px 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  font-size: 14px;
+  text-align: left;
+  color: white;
+}
+
+.category:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--green-main);
+  transform: translateY(-2px);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.product {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+}
+
+.product:hover {
+  transform: translateY(-3px);
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--purple-light), var(--green-main));
+}
+
+.product-body {
+  padding: 14px;
+  color: var(--text-dark);
+}
+
+.product-name {
+  font-size: 14px;
+  line-height: 1.4;
+  min-height: 40px;
+  font-weight: 600;
+}
+
+.product-category {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.price {
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.pi {
+  color: var(--purple-dark);
+  font-weight: 900;
+}
+
+.notice {
+  margin-top: 28px;
+  padding: 18px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  height: 70px;
+  background: rgba(91, 33, 182, 0.85);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: 50;
+}
+
+.nav-item {
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-item.active {
+  color: var(--green-main);
+  font-weight: 700;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius);
+  padding: 24px;
+  color: var(--text-dark);
+  box-shadow: var(--shadow);
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.profile-row:last-child {
+  border-bottom: 0;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.value {
+  font-weight: 700;
+  text-align: right;
+}
+
+.login-button {
+  width: 100%;
+  border: 0;
+  border-radius: 50px;
+  padding: 16px;
+  background: linear-gradient(90deg, var(--purple-dark), var(--green-main));
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  transform: none;
+}
+
+.error {
+  margin-top: 14px;
+  color: #FECACA;
+  font-size: 13px;
+  line-height: 1.5;
+  background: rgba(239, 68, 68, 0.2);
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+.loading {
+  padding: 60px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (min-width: 421px) {
+  .bottom-nav {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+  }
+}
