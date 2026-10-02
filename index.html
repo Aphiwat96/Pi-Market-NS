@@ -3,121 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pi Market-NS — ตลาดซื้อขายสินค้าภายใน Pi Ecosystem</title>
+  <title>Pi Market-NS</title>
 
-  <!-- Pi SDK v2 Integration -->
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <script>Pi.init({ version: "2.0" });</script>
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-    
-    :root {
-      --pi-purple: #6B21A8;
-      --pi-green: #22D381;
-      --bg-light: #FFFFFF;
-      --text-dark: #1A1A1A;
-      --muted: #888888;
-    }
+    :root {--pi-purple: #6B21A8;--pi-green: #22D381;}
     
     .top-wrap{
       background:linear-gradient(135deg, var(--pi-purple), var(--pi-green));
-      color:#FFFFFF;
-      min-height:240px;
+      color:#FFF;min-height:240px;
     }
-    
     .content-wrap{
-      background:var(--bg-light);
-      color:var(--text-dark);
-      border-top-left-radius:24px;
-      border-top-right-radius:24px;
-      margin-top:-16px;
-      padding:20px 16px 100px;
+      background:#FFF;border-radius:24px 24px 0 0;
+      margin-top:-16px;padding:20px 16px 100px;
       min-height:calc(100vh - 220px);
     }
-    
-    .app-header{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:16px 16px 8px;
-    }
+    .app-header{display:flex;justify-content:space-between;padding:16px;}
     .brand{display:flex;align-items:center;gap:10px;}
-    .brand-icon{
-      width:40px;height:40px;border-radius:8px;
-      background:rgba(255,255,255,0.25);
-      display:flex;align-items:center;justify-content:center;
-      font-weight:bold;font-size:20px;
-    }
-    .brand-name{font-size:20px;font-weight:bold;}
-    
-    .auth-area{display:flex;align-items:center;gap:10px;}
-    .login-btn{
-      padding:8px 16px;
-      background:rgba(255,255,255,0.2);
-      color:white;border:none;border-radius:20px;
-      font-size:14px;cursor:pointer;transition:0.2s;
-    }
-    .login-btn:hover{background:rgba(255,255,255,0.3);}
-    .user-info{display:none;align-items:center;gap:8px;font-size:14px;}
-    .account-id{
-      font-size:11px;opacity:0.7;
-      background:rgba(0,0,0,0.1);
-      padding:2px 8px;border-radius:10px;
-    }
-    
-    .status-box{
-      margin:12px 16px;
-      padding:10px 14px;
-      background:rgba(255,255,255,0.15);
-      border-radius:10px;
-      font-size:13px;display:none;
-    }
-    
-    .search-box{
-      margin:0 16px 20px;
-      padding:14px 16px;
-      background:#FFFFFF;border-radius:16px;
-      color:#333333;font-size:16px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08);
-      cursor:text;
-    }
-    
-    .cat-heading{font-size:18px;font-weight:bold;margin-bottom:12px;}
-    .cat-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;}
+    .brand-icon{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;}
+    .login-btn{padding:10px 16px;background:rgba(255,255,255,0.2);color:#FFF;border:none;border-radius:20px;cursor:pointer;}
+    .user-info{display:none;align-items:center;gap:8px;color:#FFF;}
+    .account-id{font-size:11px;opacity:0.7;background:rgba(0,0,0,0.1);padding:2px 8px;border-radius:10px;}
+    .status{margin:12px 16px;padding:10px 14px;background:rgba(255,255,255,0.15);border-radius:10px;display:none;}
+    .search{margin:0 16px 20px;padding:14px 16px;background:#FFF;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.08);}
+    .cat-heading{font-size:18px;font-weight:bold;margin:20px 0 12px;}
+    .cat-row{display:flex;gap:10px;overflow-x:auto;}
     .cat-row::-webkit-scrollbar{display:none;}
-    .cat-btn{
-      flex-shrink:0;padding:12px 18px;
-      background:linear-gradient(135deg, var(--pi-purple), var(--pi-green));
-      color:#FFFFFF;border:none;border-radius:12px;
-      font-size:14px;white-space:nowrap;cursor:pointer;
-      transition:0.1s;
-    }
-    .cat-btn:active{opacity:0.9;transform:scale(0.98);}
-    
-    .products-zone{margin-top:24px;}
-    .products-empty{
-      padding:48px 16px;text-align:center;
-      background:#F7F7F7;border-radius:16px;
-      color:var(--muted);line-height:1.8;
-    }
-    
-    .bottom-nav{
-      position:fixed;bottom:0;left:0;right:0;
-      background:rgba(0,0,0,0.75);
-      display:flex;justify-content:space-around;
-      padding:10px 0 16px;
-      border-top:1px solid rgba(255,255,255,0.1);
-      backdrop-filter:blur(8px);
-    }
-    .nav-item{
-      display:flex;flex-direction:column;align-items:center;gap:4px;
-      color:#FFFFFF;text-decoration:none;
-    }
-    .nav-item .icon{font-size:24px;line-height:1;}
-    .nav-item .label{font-size:11px;}
+    .cat-btn{flex-shrink:0;padding:12px 18px;background:linear-gradient(135deg, var(--pi-purple), var(--pi-green));color:#FFF;border:none;border-radius:12px;cursor:pointer;}
+    .empty{padding:60px 20px;text-align:center;color:#888;}
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.75);display:flex;justify-content:space-around;padding:10px 0 16px;}
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:#FFF;text-decoration:none;}
     .nav-item.cart,.nav-item.profile{transform:scale(1.15);}
-    .nav-item.cart .icon,.nav-item.profile .icon{text-shadow:0 0 6px rgba(255,255,255,0.5);}
-    .nav-item.home .icon{font-size:26px;}
-    .nav-item.home .label{font-weight:bold;}
   </style>
 </head>
 <body>
@@ -126,10 +45,10 @@
     <div class="app-header">
       <div class="brand">
         <div class="brand-icon">P</div>
-        <div class="brand-name">Pi Market-NS</div>
+        <div style="font-weight:bold;font-size:20px;">Pi Market-NS</div>
       </div>
-      <div class="auth-area">
-        <button id="loginBtn" class="login-btn" onclick="handlePiLogin()">🔐 เข้าสู่ระบบ</button>
+      <div>
+        <button id="loginBtn" class="login-btn" onclick="doLogin()">🔐 เข้าสู่ระบบ</button>
         <div id="userView" class="user-info">
           <span>👤</span>
           <div>
@@ -140,150 +59,101 @@
       </div>
     </div>
 
-    <div id="status" class="status-box"></div>
-    <div class="search-box">🔍 ค้นหาสินค้า ร้านค้า หรือหมวดหมู่...</div>
+    <div id="status" class="status"></div>
+    <div class="search">🔍 ค้นหาสินค้า...</div>
 
     <div class="content-wrap">
       <div class="cat-heading">หมวดหมู่สินค้า</div>
       <div class="cat-row">
-        <button class="cat-btn" onclick="comingSoon('OTOP / ชุมชน')">1. OTOP / ชุมชน / แปรรูป</button>
-        <button class="cat-btn" onclick="comingSoon('สินค้าเกษตร')">2. เกษตร</button>
-        <button class="cat-btn" onclick="comingSoon('ของใช้ในบ้าน')">3. บ้านและเครื่องใช้ไฟฟ้า</button>
-        <button class="cat-btn" onclick="comingSoon('เครื่องเขียน')">4. เครื่องเขียนและการเรียนรู้</button>
-        <button class="cat-btn" onclick="comingSoon('เสื้อผ้าแฟชั่น')">5. เสื้อผ้าและแฟชั่น</button>
-        <button class="cat-btn" onclick="comingSoon('เครื่องประดับ')">6. เครื่องประดับ</button>
-        <button class="cat-btn" onclick="comingSoon('อุปกรณ์อิเล็กทรอนิกส์')">7. Electronics / IT</button>
-        <button class="cat-btn" onclick="comingSoon('เครื่องมือ')">8. เครื่องมือและอะไหล่</button>
-        <button class="cat-btn" onclick="comingSoon('ของเล่น')">9. ของเล่น</button>
-        <button class="cat-btn" onclick="comingSoon('สินค้ามือสอง')">10. มือสอง / Re-commerce</button>
+        <button class="cat-btn" onclick="soon()">1. OTOP / ชุมชน</button>
+        <button class="cat-btn" onclick="soon()">2. เกษตร</button>
+        <button class="cat-btn" onclick="soon()">3. บ้านและเครื่องใช้</button>
+        <button class="cat-btn" onclick="soon()">4. เครื่องเขียน</button>
+        <button class="cat-btn" onclick="soon()">5. เสื้อผ้าแฟชั่น</button>
+        <button class="cat-btn" onclick="soon()">6. เครื่องประดับ</button>
+        <button class="cat-btn" onclick="soon()">7. Electronics</button>
+        <button class="cat-btn" onclick="soon()">8. เครื่องมือ</button>
+        <button class="cat-btn" onclick="soon()">9. ของเล่น</button>
+        <button class="cat-btn" onclick="soon()">10. มือสอง</button>
       </div>
-
-      <div class="products-zone">
-        <div class="products-empty" id="emptyNote">
-          📦 พื้นที่แสดงสินค้า<br>
-          <small>เข้าสู่ระบบด้วย Pi เพื่อเริ่มช้อปปิ้งและรับสิทธิ์เต็มระบบ</small>
-        </div>
+      <div class="empty" id="emptyNote">
+        📦 พื้นที่แสดงสินค้า<br>
+        เข้าสู่ระบบเพื่อเริ่มช้อปปิ้ง
       </div>
     </div>
   </div>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item home">
-      <span class="icon">🏠</span><span class="label">หน้าแรก</span>
-    </a>
-    <a href="cart.html" class="nav-item cart">
-      <span class="icon">🛒</span><span class="label">ตะกร้า</span>
-    </a>
-    <a href="notifications.html" class="nav-item">
-      <span class="icon">🔔</span><span class="label">แจ้งเตือน</span>
-    </a>
-    <a href="profile.html" class="nav-item profile">
-      <span class="icon">👤</span><span class="label">โปรไฟล์</span>
-    </a>
+    <a href="index.html" class="nav-item"><span>🏠</span><span>หน้าแรก</span></a>
+    <a href="cart.html" class="nav-item cart"><span>🛒</span><span>ตะกร้า</span></a>
+    <a href="#" class="nav-item"><span>🔔</span><span>แจ้งเตือน</span></a>
+    <a href="profile.html" class="nav-item profile"><span>👤</span><span>โปรไฟล์</span></a>
   </nav>
 
   <script>
-    let currentUser = null;
-    const STORAGE_KEY = 'pi_market_ns_user';
+    const STORAGE = 'pi_market_ns_user';
 
-    // === ตามคัมภีร์: สร้าง Account ID รูปแบบ PM-XXXXXXXX ===
-    function generateAccountId() {
-      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let code = '';
-      for (let i = 0; i < 8; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return 'PM-' + code;
+    function makePID() {
+      const t = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let r = '';
+      for(let i=0;i<8;i++) r += t[Math.floor(Math.random()*t.length)];
+      return 'PM-' + r;
     }
 
-    function showStatus(text) {
-      const box = document.getElementById('status');
-      box.textContent = text;
-      box.style.display = 'block';
+    function showMsg(txt) {
+      const s = document.getElementById('status');
+      s.textContent = txt; s.style.display = 'block';
     }
 
-    function hideStatus() {
-      document.getElementById('status').style.display = 'none';
-    }
-
-    // === ตามคัมภีร์: ตรวจสอบ/สร้างบัญชีจาก Pi UID ===
-    function resolveAccount(piUid, piUsername) {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const existing = JSON.parse(saved);
-        if (existing.piUid === piUid) {
-          return { ...existing, returning: true };
-        }
-      }
-      // ยังไม่มี → สร้างใหม่
-      const newAccount = {
-        piUid: piUid,
-        username: piUsername || 'สมาชิก Pi',
-        accountId: generateAccountId(),
-        role: 'member',
-        accountStatus: 'active',
-        joinedAt: new Date().toISOString()
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newAccount));
-      return { ...newAccount, returning: false };
-    }
-
-    function renderLoggedIn(user) {
+    function render(u) {
       document.getElementById('loginBtn').style.display = 'none';
       document.getElementById('userView').style.display = 'flex';
-      document.getElementById('userName').textContent = user.username;
-      document.getElementById('userPID').textContent = user.accountId;
-      
-      document.getElementById('emptyNote').innerHTML = `
-        ✅ ยินดีต้อนรับคุณ ${user.username}<br>
-        <small>บัญชี: ${user.accountId} — พร้อมใช้งาน</small>
-      `;
-      
-      showStatus(
-        user.returning 
-          ? `✅ ยินดีต้อนรับกลับมา ครับ! (${user.accountId})`
-          : `✅ บัญชีสร้างสำเร็จ: ${user.accountId}`
-      );
-      
-      setTimeout(hideStatus, 4000);
+      document.getElementById('userName').textContent = u.name;
+      document.getElementById('userPID').textContent = u.pid;
+      document.getElementById('emptyNote').innerHTML = `✅ ยินดีต้อนรับ ${u.name}<br><small>บัญชี: ${u.pid}</small>`;
+      showMsg('✅ เข้าสู่ระบบสำเร็จ!');
+      setTimeout(()=>document.getElementById('status').style.display='none', 3000);
     }
 
-    // === Pi Authentication Flow ===
-    async function handlePiLogin() {
+    function findOrMake(piUid, piName) {
+      const saved = localStorage.getItem(STORAGE);
+      if(saved) {
+        const u = JSON.parse(saved);
+        if(u.uid === piUid) return u;
+      }
+      const newUser = {
+        uid: piUid,
+        name: piName,
+        pid: makePID(),
+        role: 'member',
+        since: new Date().toISOString()
+      };
+      localStorage.setItem(STORAGE, JSON.stringify(newUser));
+      return newUser;
+    }
+
+    async function doLogin() {
       try {
-        showStatus('⏳ กำลังขอยืนยันตัวจาก Pi...');
+        showMsg('⏳ กำลังยืนยันกับ Pi...');
+        // ✅ แก้จุดสำคัญ: ขอแค่ 'username' เท่านั้น
+        const res = await Pi.authenticate(['username']);
+        const uid = res.user.uid;
+        const name = res.user.username || 'สมาชิก Pi';
         
-        // ขอสิทธิ์จาก Pi Browser
-        const authResult = await Pi.authenticate(['username', 'uid']);
-        const { user } = authResult;
-        
-        showStatus('⏳ กำลังตรวจสอบบัญชีในระบบ...');
-        
-        // ตรวจสอบ/สร้างบัญชี
-        currentUser = resolveAccount(user.uid, user.username);
-        
-        // แสดงผล
-        renderLoggedIn(currentUser);
-        
-      } catch (error) {
-        console.error('Pi Auth Error:', error);
-        showStatus('❌ ไม่สามารถเข้าสู่ระบบได้: ' + (error.message || 'โปรดลองใหม่อีกครั้ง'));
-        setTimeout(hideStatus, 5000);
+        showMsg('⏳ กำลังตรวจสอบบัญชี...');
+        const user = findOrMake(uid, name);
+        render(user);
+      } catch(e) {
+        showMsg('❌ ผิดพลาด: ' + e.message);
       }
     }
 
-    function comingSoon(name) {
-      alert(`หมวด「${name}」จะพร้อมใช้งานเร็วๆ นี้ครับ!`);
-    }
+    function soon() { alert('เร็วๆ นี้ครับ!'); }
 
-    // === คืนค่าผู้ใช้ที่เคยเข้ามาเมื่อโหลดหน้า ===
-    window.addEventListener('load', () => {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        currentUser = JSON.parse(saved);
-        renderLoggedIn({ ...currentUser, returning: true });
-      }
-    });
+    window.onload = function() {
+      const saved = localStorage.getItem(STORAGE);
+      if(saved) render(JSON.parse(saved));
+    };
   </script>
 </body>
 </html>
