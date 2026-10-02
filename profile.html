@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โปรไฟล์ - Pi Market-NS</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+    
+    /* === ส่วนหัว === */
+    .top-bar{
+      background:linear-gradient(135deg,#6B21A8,#22D381);
+      color:#FFFFFF;
+      padding:16px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .back-btn{font-size:20px;cursor:pointer;}
+    .page-title{font-size:18px;font-weight:bold;}
+    
+    /* === เนื้อหา พื้นขาว === */
+    .content{
+      background:#FFFFFF;
+      min-height:calc(100vh - 60px);
+      padding:24px 16px 100px;
+    }
+    
+    /* === กล่องโปรไฟล์ === */
+    .profile-card{
+      background:linear-gradient(135deg,#6B21A8,#22D381);
+      border-radius:20px;
+      padding:32px 20px;
+      text-align:center;
+      color:#FFFFFF;
+      margin-bottom:24px;
+    }
+    .avatar{
+      width:80px;height:80px;
+      background:rgba(255,255,255,0.25);
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:36px;
+      margin:0 auto 12px;
+    }
+    .account-id{
+      font-size:14px;
+      opacity:0.8;
+      margin-top:4px;
+    }
+    .status-badge{
+      display:inline-block;
+      margin-top:12px;
+      padding:6px 16px;
+      background:rgba(255,255,255,0.2);
+      border-radius:20px;
+      font-size:13px;
+    }
+    
+    /* === รายการเมนูโปรไฟล์ === */
+    .menu-section{margin-bottom:24px;}
+    .menu-item{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px;
+      border-bottom:1px solid #F0F0F0;
+      color:#333;
+      font-size:15px;
+    }
+    .menu-item:first-child{border-top:1px solid #F0F0F0;}
+    .menu-icon{font-size:18px;margin-right:12px;}
+    .menu-left{display:flex;align-items:center;}
+    .arrow{color:#CCC;}
+    
+    /* === แถบเมนูล่าง เหมือนกันทุกหน้า === */
+    .bottom-nav{
+      position:fixed;bottom:0;left:0;right:0;
+      background:rgba(0,0,0,0.75);
+      display:flex;justify-content:space-around;
+      padding:10px 0 16px;
+      border-top:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(8px);
+    }
+    .nav-item{
+      display:flex;flex-direction:column;align-items:center;gap:4px;
+      color:#FFFFFF;text-decoration:none;
+    }
+    .nav-item .icon{font-size:24px;line-height:1;}
+    .nav-item .label{font-size:11px;}
+    .nav-item.cart{transform:scale(1.15);}
+    .nav-item.profile{transform:scale(1.15);}
+    .nav-item.profile .icon{text-shadow:0 0 6px rgba(255,255,255,0.5);}
+  </style>
+</head>
+<body>
 
+  <div class="top-bar">
+    <a href="index.html" class="back-btn" style="color:white;text-decoration:none;">←</a>
+    <h1 class="page-title">โปรไฟล์</h1>
+  </div>
+
+  <div class="content">
+    <!-- การ์ดข้อมูลผู้ใช้ -->
+    <div class="profile-card">
+      <div class="avatar">👤</div>
+      <h2>สมาชิก Pi Market-NS</h2>
+      <p class="account-id">PM-XXXXXXXX</p>
+      <span class="status-badge">สมาชิกทั่วไป</span>
+    </div>
+
+    <!-- เมนูจัดการบัญชี ตามโครงสร้างคัมภีร์ -->
+    <div class="menu-section">
+      <a href="#" class="menu-item" style="text-decoration:none;">
+        <div class="menu-left">
+          <span class="menu-icon">📋</span>
+          <span>ข้อมูลบัญชี</span>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="menu-item" style="text-decoration:none;">
+        <div class="menu-left">
+          <span class="menu-icon">🛍️</span>
+          <span>คำสั่งซื้อของฉัน</span>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="menu-item" style="text-decoration:none;">
+        <div class="menu-left">
+          <span class="menu-icon">💳</span>
+          <span>การชำระเงิน</span>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="menu-item" style="text-decoration:none;">
+        <div class="menu-left">
+          <span class="menu-icon">🏪</span>
+          <span>จัดการร้านค้า</span>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="menu-item" style="text-decoration:none;">
+        <div class="menu-left">
+          <span class="menu-icon">🔒</span>
+          <span>ออกจากระบบ</span>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- เมนูนำทางล่าง -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="label">หน้าแรก</span>
+    </a>
+    <a href="cart.html" class="nav-item cart">
+      <span class="icon">🛒</span>
+      <span class="label">ตะกร้า</span>
+    </a>
+    <a href="notifications.html" class="nav-item">
+      <span class="icon">🔔</span>
+      <span class="label">แจ้งเตือน</span>
+    </a>
+    <a href="profile.html" class="nav-item profile">
+      <span class="icon">👤</span>
+      <span class="label">โปรไฟล์</span>
+    </a>
+  </nav>
+
+</body>
+</html>
