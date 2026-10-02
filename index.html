@@ -4,24 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pi Market-NS</title>
-
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <script>Pi.init({ version: "2.0" });</script>
-
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-    :root {--pi-purple: #6B21A8;--pi-green: #22D381;}
-    
-    .top-wrap{
-      background:linear-gradient(135deg, var(--pi-purple), var(--pi-green));
-      color:#FFF;min-height:240px;
-    }
-    .content-wrap{
-      background:#FFF;border-radius:24px 24px 0 0;
-      margin-top:-16px;padding:20px 16px 100px;
-      min-height:calc(100vh - 220px);
-    }
-    .app-header{display:flex;justify-content:space-between;padding:16px;}
+    .top-wrap{background:linear-gradient(135deg,#6B21A8,#22D381);color:#FFF;min-height:240px;}
+    .content-wrap{background:#FFF;border-radius:24px 24px 0 0;margin-top:-16px;padding:20px 16px 100px;min-height:calc(100vh - 220px);}
+    .app-header{display:flex;justify-content:space-between;padding:16px;align-items:center;}
     .brand{display:flex;align-items:center;gap:10px;}
     .brand-icon{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;}
     .login-btn{padding:10px 16px;background:rgba(255,255,255,0.2);color:#FFF;border:none;border-radius:20px;cursor:pointer;}
@@ -32,7 +21,7 @@
     .cat-heading{font-size:18px;font-weight:bold;margin:20px 0 12px;}
     .cat-row{display:flex;gap:10px;overflow-x:auto;}
     .cat-row::-webkit-scrollbar{display:none;}
-    .cat-btn{flex-shrink:0;padding:12px 18px;background:linear-gradient(135deg, var(--pi-purple), var(--pi-green));color:#FFF;border:none;border-radius:12px;cursor:pointer;}
+    .cat-btn{flex-shrink:0;padding:12px 18px;background:linear-gradient(135deg,#6B21A8,#22D381);color:#FFF;border:none;border-radius:12px;cursor:pointer;}
     .empty{padding:60px 20px;text-align:center;color:#888;}
     .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.75);display:flex;justify-content:space-around;padding:10px 0 16px;}
     .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:#FFF;text-decoration:none;}
@@ -40,7 +29,6 @@
   </style>
 </head>
 <body>
-
   <div class="top-wrap">
     <div class="app-header">
       <div class="brand">
@@ -58,10 +46,8 @@
         </div>
       </div>
     </div>
-
     <div id="status" class="status"></div>
     <div class="search">🔍 ค้นหาสินค้า...</div>
-
     <div class="content-wrap">
       <div class="cat-heading">หมวดหมู่สินค้า</div>
       <div class="cat-row">
@@ -77,83 +63,25 @@
         <button class="cat-btn" onclick="soon()">10. มือสอง</button>
       </div>
       <div class="empty" id="emptyNote">
-        📦 พื้นที่แสดงสินค้า<br>
-        เข้าสู่ระบบเพื่อเริ่มช้อปปิ้ง
+        📦 พื้นที่แสดงสินค้า<br>เข้าสู่ระบบเพื่อเริ่มช้อปปิ้ง
       </div>
     </div>
   </div>
-
   <nav class="bottom-nav">
     <a href="index.html" class="nav-item"><span>🏠</span><span>หน้าแรก</span></a>
     <a href="cart.html" class="nav-item cart"><span>🛒</span><span>ตะกร้า</span></a>
     <a href="#" class="nav-item"><span>🔔</span><span>แจ้งเตือน</span></a>
     <a href="profile.html" class="nav-item profile"><span>👤</span><span>โปรไฟล์</span></a>
   </nav>
-
   <script>
     const STORAGE = 'pi_market_ns_user';
-
-    function makePID() {
-      const t = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let r = '';
-      for(let i=0;i<8;i++) r += t[Math.floor(Math.random()*t.length)];
-      return 'PM-' + r;
-    }
-
-    function showMsg(txt) {
-      const s = document.getElementById('status');
-      s.textContent = txt; s.style.display = 'block';
-    }
-
-    function render(u) {
-      document.getElementById('loginBtn').style.display = 'none';
-      document.getElementById('userView').style.display = 'flex';
-      document.getElementById('userName').textContent = u.name;
-      document.getElementById('userPID').textContent = u.pid;
-      document.getElementById('emptyNote').innerHTML = `✅ ยินดีต้อนรับ ${u.name}<br><small>บัญชี: ${u.pid}</small>`;
-      showMsg('✅ เข้าสู่ระบบสำเร็จ!');
-      setTimeout(()=>document.getElementById('status').style.display='none', 3000);
-    }
-
-    function findOrMake(piUid, piName) {
-      const saved = localStorage.getItem(STORAGE);
-      if(saved) {
-        const u = JSON.parse(saved);
-        if(u.uid === piUid) return u;
-      }
-      const newUser = {
-        uid: piUid,
-        name: piName,
-        pid: makePID(),
-        role: 'member',
-        since: new Date().toISOString()
-      };
-      localStorage.setItem(STORAGE, JSON.stringify(newUser));
-      return newUser;
-    }
-
-    async function doLogin() {
-      try {
-        showMsg('⏳ กำลังยืนยันกับ Pi...');
-        // ✅ แก้จุดสำคัญ: ขอแค่ 'username' เท่านั้น
-        const res = await Pi.authenticate(['username']);
-        const uid = res.user.uid;
-        const name = res.user.username || 'สมาชิก Pi';
-        
-        showMsg('⏳ กำลังตรวจสอบบัญชี...');
-        const user = findOrMake(uid, name);
-        render(user);
-      } catch(e) {
-        showMsg('❌ ผิดพลาด: ' + e.message);
-      }
-    }
-
-    function soon() { alert('เร็วๆ นี้ครับ!'); }
-
-    window.onload = function() {
-      const saved = localStorage.getItem(STORAGE);
-      if(saved) render(JSON.parse(saved));
-    };
+    function makePID(){const t='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';let r='';for(let i=0;i<8;i++)r+=t[Math.floor(Math.random()*t.length)];return'PM-'+r;}
+    function showMsg(txt){const s=document.getElementById('status');s.textContent=txt;s.style.display='block';setTimeout(()=>s.style.display='none',4000);}
+    function render(u){document.getElementById('loginBtn').style.display='none';document.getElementById('userView').style.display='flex';document.getElementById('userName').textContent=u.name;document.getElementById('userPID').textContent=u.pid;document.getElementById('emptyNote').innerHTML=`✅ ยินดีต้อนรับ ${u.name}<br><small>บัญชี: ${u.pid}</small>`;showMsg('✅ เข้าสู่ระบบสำเร็จ!');}
+    function findOrMake(uid,name){const s=localStorage.getItem(STORAGE);if(s){const u=JSON.parse(s);if(u.uid===uid)return u;}const n={uid:uid,name:name,pid:makePID(),role:'member'};localStorage.setItem(STORAGE,JSON.stringify(n));return n;}
+    async function doLogin(){try{showMsg('⏳ กำลังยืนยันกับ Pi...');const res=await Pi.authenticate(['username']);const u=findOrMake(res.user.uid,res.user.username||'สมาชิก Pi');render(u);}catch(e){showMsg('❌ ผิดพลาด: '+e.message);}}
+    function soon(){alert('เร็วๆ นี้ครับ!');}
+    window.onload=()=>{const s=localStorage.getItem(STORAGE);if(s)render(JSON.parse(s));};
   </script>
 </body>
 </html>
