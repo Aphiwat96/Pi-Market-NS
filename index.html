@@ -6,71 +6,159 @@
   <title>Pi Market-NS</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-    body{background:linear-gradient(135deg,#6B21A8,#22D381);min-height:100vh;color:white;}
-    .header{padding:1rem;display:flex;align-items:center;justify-content:space-between;}
-    .logo-area{display:flex;align-items:center;gap:0.75rem;}
-    .logo-img{width:40px;height:40px;border-radius:8px;object-fit:contain;}
-    .logo-placeholder{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:1.2rem;}
-    .app-name{font-size:1.25rem;font-weight:bold;}
-    .chat-icon{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;}
-    .hero{padding:1.5rem;background:rgba(255,255,255,0.1);margin:1rem;border-radius:16px;text-align:center;}
-    .hero-main-logo{width:160px;margin:0 auto 1rem;display:block;}
-    .hero h1{font-size:1.5rem;margin-bottom:0.5rem;}
-    .hero p{opacity:0.9;}
-    .search-bar{margin:1rem;padding:0.875rem;background:white;border-radius:999px;color:#333;}
-    .section-title{padding:0 1rem 0.5rem;font-size:1.125rem;font-weight:bold;}
-    .cat-scroll{display:flex;gap:0.75rem;overflow-x:auto;padding:0 1rem 1rem;}
-    .cat{white-space:nowrap;padding:0.75rem 1.25rem;background:rgba(255,255,255,0.15);border:none;border-radius:12px;color:white;font-size:0.9rem;}
-    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.25);display:flex;justify-content:space-around;padding:0.75rem 0;}
-    .nav-item{display:flex;flex-direction:column;align-items:center;gap:0.25rem;font-size:0.75rem;opacity:0.7;}
-    .nav-item.active{opacity:1;font-weight:bold;}
+    
+    /* === ส่วนบน: สีม่วง-เขียวตามแบรนด์ === */
+    .top-wrap{
+      background:linear-gradient(135deg,#6B21A8,#22D381);
+      color:#FFFFFF;
+      min-height:240px;
+    }
+    
+    /* === ส่วนล่าง: พื้นขาวทั้งหมด ตั้งแต่หมวดหมู่ลงมา === */
+    .content-wrap{
+      background:#FFFFFF;
+      color:#1A1A1A;
+      border-top-left-radius:24px;
+      border-top-right-radius:24px;
+      margin-top:-16px;
+      padding:20px 16px 100px;
+      min-height:calc(100vh - 220px);
+    }
+    
+    /* === ส่วนหัวแอป === */
+    .app-header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px 16px 8px;
+    }
+    .brand{display:flex;align-items:center;gap:10px;}
+    .brand-icon{
+      width:40px;height:40px;border-radius:8px;
+      background:rgba(255,255,255,0.25);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:bold;font-size:20px;
+    }
+    .brand-name{font-size:20px;font-weight:bold;}
+    .chat-btn{
+      width:40px;height:40px;border-radius:50%;
+      background:rgba(255,255,255,0.25);
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;
+    }
+    
+    /* === ช่องค้นหา === */
+    .search-box{
+      margin:12px 16px 20px;
+      padding:14px 16px;
+      background:#FFFFFF;border-radius:16px;
+      color:#333333;font-size:16px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    /* === หมวดหมู่สินค้า — 10 หมวดตามคัมภีร์ === */
+    .cat-heading{font-size:18px;font-weight:bold;margin-bottom:12px;}
+    .cat-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;}
+    .cat-row::-webkit-scrollbar{display:none;}
+    .cat-btn{
+      flex-shrink:0;padding:12px 18px;
+      background:linear-gradient(135deg,#6B21A8,#22D381);
+      color:#FFFFFF;border:none;border-radius:12px;
+      font-size:14px;white-space:nowrap;
+    }
+    .cat-btn:active{opacity:0.9;transform:scale(0.98);}
+    
+    /* === พื้นที่วางสินค้า — โล่ง พร้อมเติม === */
+    .products-zone{margin-top:24px;}
+    .products-empty{
+      padding:48px 16px;text-align:center;
+      background:#F7F7F7;border-radius:16px;
+      color:#888888;line-height:1.6;
+    }
+    
+    /* === แถบเมนูล่าง — ชัดเจน สีขาวเด่น === */
+    .bottom-nav{
+      position:fixed;bottom:0;left:0;right:0;
+      background:rgba(0,0,0,0.75);
+      display:flex;justify-content:space-around;
+      padding:10px 0 16px;
+      border-top:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(8px);
+    }
+    .nav-item{
+      display:flex;flex-direction:column;align-items:center;gap:4px;
+      color:#FFFFFF;text-decoration:none;
+    }
+    .nav-item .icon{font-size:24px;line-height:1;}
+    .nav-item .label{font-size:11px;}
+    
+    /* === ตะกร้า + โปรไฟล์ เด่นเป็นพิเศษ === */
+    .nav-item.cart{transform:scale(1.15);}
+    .nav-item.profile{transform:scale(1.15);}
+    .nav-item.cart .icon, .nav-item.profile .icon{text-shadow:0 0 6px rgba(255,255,255,0.5);}
+    
+    /* === หน้าแรกปัจจุบัน === */
+    .nav-item.home .icon{font-size:26px;}
+    .nav-item.home .label{font-weight:bold;}
   </style>
 </head>
 <body>
 
-  <!-- === ส่วนหัว: โลโก้เล็ก + ชื่อแอป === -->
-  <div class="header">
-    <div class="logo-area">
-      <!-- ถ้ามีไฟล์รูปแล้ว เปลี่ยนเป็น <img src="ชื่อไฟล์.png" alt="Logo" class="logo-img"> -->
-      <div class="logo-placeholder">P</div>
-      <span class="app-name">Pi Market-NS</span>
+  <div class="top-wrap">
+    <!-- ส่วนหัว -->
+    <div class="app-header">
+      <div class="brand">
+        <div class="brand-icon">P</div>
+        <div class="brand-name">Pi Market-NS</div>
+      </div>
+      <div class="chat-btn">💬</div>
     </div>
-    <div class="chat-icon">💬</div>
+
+    <!-- ช่องค้นหา -->
+    <div class="search-box">🔍 ค้นหาสินค้า...</div>
+
+    <!-- เนื้อหาส่วนล่าง พื้นขาว -->
+    <div class="content-wrap">
+      <div class="cat-heading">หมวดหมู่สินค้า</div>
+      <div class="cat-row">
+        <button class="cat-btn">1. OTOP / ชุมชน / แปรรูป</button>
+        <button class="cat-btn">2. เกษตร</button>
+        <button class="cat-btn">3. บ้านและเครื่องใช้ไฟฟ้า</button>
+        <button class="cat-btn">4. เครื่องเขียนและการเรียนรู้</button>
+        <button class="cat-btn">5. เสื้อผ้าและแฟชั่น</button>
+        <button class="cat-btn">6. เครื่องประดับ</button>
+        <button class="cat-btn">7. Electronics / IT</button>
+        <button class="cat-btn">8. เครื่องมือและอะไหล่</button>
+        <button class="cat-btn">9. ของเล่น</button>
+        <button class="cat-btn">10. มือสอง / Re-commerce</button>
+      </div>
+
+      <div class="products-zone">
+        <div class="products-empty">
+          📦 พื้นที่แสดงสินค้า<br>
+          พร้อมเพิ่มรายการสินค้าในขั้นตอนถัดไป
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- === โลโก้ใหญ่ + ข้อความต้อนรับ === -->
-  <div class="hero">
-    <!-- ถ้ามีไฟล์รูปแล้ว เปลี่ยนเป็น <img src="ชื่อไฟล์.png" alt="Pi Market-NS" class="hero-main-logo"> -->
-    <div style="font-size:3rem;font-weight:bold;padding:2rem 0;">Pi Market-NS</div>
-    <h1>ยินดีต้อนรับสู่ Pi Market-NS</h1>
-    <p>ตลาดซื้อขายสินค้าชุมชนในระบบ Pi Ecosystem</p>
-  </div>
-
-  <!-- === ช่องค้นหา === -->
-  <div class="search-bar">ค้นหาสินค้า...</div>
-
-  <!-- === หมวดหมู่ครบ 10 ตามคัมภีร์ === -->
-  <div class="section-title">หมวดหมู่สินค้า</div>
-  <div class="cat-scroll">
-    <button class="cat">1. OTOP / ชุมชน / แปรรูป</button>
-    <button class="cat">2. เกษตร</button>
-    <button class="cat">3. บ้านและเครื่องใช้ไฟฟ้า</button>
-    <button class="cat">4. เครื่องเขียนและการเรียนรู้</button>
-    <button class="cat">5. เสื้อผ้าและแฟชั่น</button>
-    <button class="cat">6. เครื่องประดับ</button>
-    <button class="cat">7. Electronics / IT</button>
-    <button class="cat">8. เครื่องมือและอะไหล่</button>
-    <button class="cat">9. ของเล่น</button>
-    <button class="cat">10. มือสอง / Re-commerce</button>
-  </div>
-
-  <!-- === เมนูล่าง === -->
-  <div class="bottom-nav">
-    <div class="nav-item active">🏠<br>หน้าแรก</div>
-    <div class="nav-item">🛒<br>ตะกร้า</div>
-    <div class="nav-item">🔔<br>แจ้งเตือน</div>
-    <div class="nav-item">👤<br>โปรไฟล์</div>
-  </div>
+  <!-- เมนูนำทางล่าง -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item home">
+      <span class="icon">🏠</span>
+      <span class="label">หน้าแรก</span>
+    </a>
+    <a href="cart.html" class="nav-item cart">
+      <span class="icon">🛒</span>
+      <span class="label">ตะกร้า</span>
+    </a>
+    <a href="notifications.html" class="nav-item">
+      <span class="icon">🔔</span>
+      <span class="label">แจ้งเตือน</span>
+    </a>
+    <a href="profile.html" class="nav-item profile">
+      <span class="icon">👤</span>
+      <span class="label">โปรไฟล์</span>
+    </a>
+  </nav>
 
 </body>
 </html>
