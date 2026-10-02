@@ -1,1 +1,154 @@
+/* === Market-NS : สีหลักตามแบบที่ออกแบบ === */
+:root {
+  --purple-dark: #5B21B6;
+  --purple-mid: #7C3AED;
+  --purple-light: #A78BFA;
+  --green-main: #4ADE80;
+  --green-light: #86EFAC;
+  --bg-gradient-start: #5B21B6;
+  --bg-gradient-end: #4ADE80;
+  --text-dark: #1F2937;
+  --text-light: #6B7280;
+  --white: #FFFFFF;
+  --card-bg: #F9FAFB;
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 16px;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  min-height: 100vh;
+  color: var(--text-dark);
+  padding: 20px;
+}
+
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  padding: 20px 10px 30px;
+  color: var(--white);
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.subtitle {
+  opacity: 0.9;
+  margin-top: 6px;
+}
+
+.banner {
+  background: linear-gradient(90deg, var(--purple-dark), var(--green-main));
+  border-radius: var(--radius);
+  padding: 30px 20px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow);
+}
+
+.banner h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.banner p {
+  opacity: 0.9;
+}
+
+.main-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 35px;
+}
+
+.btn {
+  flex: 1;
+  min-width: 110px;
+  padding: 14px 10px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-purple {
+  background: var(--purple-dark);
+  color: white;
+}
+
+.btn-green {
+  background: var(--green-main);
+  color: var(--text-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.section-title {
+  color: white;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 15px 10px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.product-img {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--purple-light), var(--green-main));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.product-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.product-price {
+  color: var(--purple-dark);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+@media (max-width: 360px) {
+  .products-grid { grid-template-columns: 1fr 1fr; }
+}
