@@ -28,7 +28,7 @@ body {
 }
 
 .brand {display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px;}
-.brand-logo {width: 34px; height: 34px; object-fit: contain; border-radius: 8px;}
+.brand-logo {width: 36px; height: 36px; object-fit: contain; border-radius: 8px;}
 
 .icon-btn {
   width: 40px; height: 40px; border: none; background: var(--trans);
@@ -48,7 +48,7 @@ body {
 
 .search {
   width: 100%; padding: 14px 20px; border-radius: 50px; border: none;
-  background: rgba(255,255,255,0.9); color: #333; font-size: 15px;
+  background: rgba(255,255,255,0.95); color: #333; font-size: 15px;
   transition: transform 0.2s ease;
 }
 .search:focus {outline: none; transform: scale(1.02);}
@@ -56,7 +56,6 @@ body {
 .section {margin-top: 28px;}
 .sec-title {font-size: 18px; margin-bottom: 14px;}
 
-/* หมวดหมู่ เลื่อนซ้าย-ขวา แถวเดียว */
 .cat-scroll-wrapper {overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch;}
 .cat-scroll-wrapper::-webkit-scrollbar {height: 4px;}
 .cat-scroll-wrapper::-webkit-scrollbar-thumb {background: rgba(255,255,255,0.3); border-radius: 2px;}
@@ -69,19 +68,6 @@ body {
 }
 .cat:active {transform: scale(0.92); background: rgba(255,255,255,0.25);}
 
-.prod-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;}
-.prod-card {
-  background: white; border-radius: var(--radius); overflow: hidden;
-  color: #333; padding: 20px 16px; text-align: center; cursor: pointer;
-  transition: all 0.3s var(--bounce);
-}
-.prod-card:active {transform: scale(0.92);}
-.prod-img {font-size: 40px; margin-bottom: 10px; transition: transform 0.3s ease;}
-.prod-card:active .prod-img {transform: scale(1.2);}
-.prod-name {font-weight: 600; margin-bottom: 8px; font-size: 14px;}
-.prod-price {font-weight: bold; color: var(--purple); font-size: 16px;}
-
-/* เปลี่ยนหน้า */
 .page {display: none;}
 .page.active {display: block; animation: fadeIn 0.3s ease;}
 @keyframes fadeIn {
@@ -99,15 +85,12 @@ body {
 }
 .profile-label {opacity: 0.7; font-size: 14px;}
 .profile-id {font-size: 20px; font-weight: bold; margin: 4px 0 8px;}
-.profile-status {opacity: 0.6; font-size: 13px; margin-bottom: 20px;}
-.divider {border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 16px 0;}
-.profile-menu {padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);}
+.profile-status {opacity: 0.6; font-size: 13px;}
 
-/* เมนูล่าง: หน้าแรก | ตะกร้า | กระดิ่งแจ้งเตือน | โปรไฟล์ */
 .bottom-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
   width: 100%; max-width: 420px; height: 70px;
-  background: rgba(91,33,182,0.9); display: grid; grid-template-columns: repeat(4,1fr);
+  background: rgba(91,33,182,0.92); display: grid; grid-template-columns: repeat(4,1fr);
   border-top: 1px solid rgba(255,255,255,0.2);
 }
 .nav-item {
