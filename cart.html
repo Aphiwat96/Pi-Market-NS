@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ตะกร้าสินค้า - Pi Market-NS</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+    
+    /* === ส่วนหัว === */
+    .top-bar{
+      background:linear-gradient(135deg,#6B21A8,#22D381);
+      color:#FFFFFF;
+      padding:16px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .back-btn{font-size:20px;cursor:pointer;}
+    .page-title{font-size:18px;font-weight:bold;}
+    
+    /* === เนื้อหา พื้นขาว === */
+    .content{
+      background:#FFFFFF;
+      min-height:calc(100vh - 60px);
+      padding:24px 16px 100px;
+    }
+    
+    /* === ตะกร้าว่าง === */
+    .empty-cart{
+      text-align:center;padding:60px 20px;
+      color:#777777;
+    }
+    .empty-icon{font-size:64px;margin-bottom:16px;opacity:0.6;}
+    .empty-text{font-size:16px;margin-bottom:24px;}
+    
+    /* === ปุ่ม === */
+    .btn-primary{
+      display:block;width:100%;padding:14px;
+      background:linear-gradient(135deg,#6B21A8,#22D381);
+      color:#FFFFFF;border:none;border-radius:12px;
+      font-size:16px;font-weight:bold;cursor:pointer;
+    }
+    .btn-primary:active{opacity:0.9;}
+    
+    /* === แถบเมนูล่าง เหมือนหน้าแรก === */
+    .bottom-nav{
+      position:fixed;bottom:0;left:0;right:0;
+      background:rgba(0,0,0,0.75);
+      display:flex;justify-content:space-around;
+      padding:10px 0 16px;
+      border-top:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(8px);
+    }
+    .nav-item{
+      display:flex;flex-direction:column;align-items:center;gap:4px;
+      color:#FFFFFF;text-decoration:none;
+    }
+    .nav-item .icon{font-size:24px;line-height:1;}
+    .nav-item .label{font-size:11px;}
+    .nav-item.cart{transform:scale(1.15);}
+    .nav-item.cart .icon{text-shadow:0 0 6px rgba(255,255,255,0.5);}
+    .nav-item.profile{transform:scale(1.15);}
+  </style>
+</head>
+<body>
 
+  <div class="top-bar">
+    <a href="index.html" class="back-btn" style="color:white;text-decoration:none;">←</a>
+    <h1 class="page-title">ตะกร้าสินค้า</h1>
+  </div>
+
+  <div class="content">
+    <div class="empty-cart">
+      <div class="empty-icon">🛒</div>
+      <p class="empty-text">ตะกร้าของคุณยังไม่มีสินค้า</p>
+      <p style="color:#999;margin-bottom:24px;">เริ่มช้อปปิ้งและเพิ่มสินค้าลงตะกร้าได้เลย</p>
+      <a href="index.html" class="btn-primary">กลับไปเลือกสินค้า</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="label">หน้าแรก</span>
+    </a>
+    <a href="cart.html" class="nav-item cart">
+      <span class="icon">🛒</span>
+      <span class="label">ตะกร้า</span>
+    </a>
+    <a href="notifications.html" class="nav-item">
+      <span class="icon">🔔</span>
+      <span class="label">แจ้งเตือน</span>
+    </a>
+    <a href="profile.html" class="nav-item profile">
+      <span class="icon">👤</span>
+      <span class="label">โปรไฟล์</span>
+    </a>
+  </nav>
+
+</body>
+</html>
