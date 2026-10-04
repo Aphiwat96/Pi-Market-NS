@@ -10,15 +10,17 @@ const categories = [
   "ของเล่น",
   "มือสอง / Re-commerce",
 ];
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
+
       <header className="border-b border-gray-200 bg-white">
         <div className="flex items-center justify-between px-4 py-4">
           <h1 className="text-xl font-bold text-green-700">
             Pi Market-NS
           </h1>
+
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -27,6 +29,7 @@ export default function HomePage() {
             >
               Search
             </button>
+
             <button
               type="button"
               aria-label="แชต"
@@ -37,7 +40,7 @@ export default function HomePage() {
           </div>
         </div>
       </header>
-      {/* Search */}
+
       <section className="px-4 pt-4">
         <input
           type="search"
@@ -45,11 +48,12 @@ export default function HomePage() {
           className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-green-600"
         />
       </section>
-      {/* Categories */}
+
       <section className="px-4 pt-5">
         <h2 className="mb-3 text-lg font-bold">
           หมวดหมู่
         </h2>
+
         <div className="flex gap-3 overflow-x-auto pb-2">
           {categories.map((category) => (
             <button
@@ -62,17 +66,19 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-      {/* Products */}
+
       <section className="px-4 pb-24 pt-6">
         <h2 className="mb-4 text-lg font-bold">
           สินค้า
         </h2>
+
         <div className="grid grid-cols-2 gap-4">
           <div className="aspect-square rounded-xl border border-dashed border-gray-300 bg-gray-50" />
+
           <div className="aspect-square rounded-xl border border-dashed border-gray-300 bg-gray-50" />
         </div>
       </section>
-      {/* Bottom Navigation */}
+
       <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white">
         <div className="grid grid-cols-4">
           <button
@@ -83,6 +89,7 @@ export default function HomePage() {
               Home
             </span>
           </button>
+
           <button
             type="button"
             className="py-3 text-center text-gray-600"
@@ -91,6 +98,7 @@ export default function HomePage() {
               Cart
             </span>
           </button>
+
           <button
             type="button"
             className="py-3 text-center text-gray-600"
@@ -99,6 +107,7 @@ export default function HomePage() {
               Notifications
             </span>
           </button>
+
           <button
             type="button"
             className="py-3 text-center text-gray-600"
@@ -109,12 +118,7 @@ export default function HomePage() {
           </button>
         </div>
       </nav>
+
     </main>
   );
 }
-
-วิธีทำตอนนี้: เปิด app/home/page.tsx → วางโค้ดทั้งหมดนี้ → Save
-
-ยังไม่ต้องแก้ app/page.tsx เดิมครับ
-
-พอเสร็จแล้วบอกผมแค่ว่า “วางแล้ว” เดี๋ยวเราตรวจขั้นต่อไปด้วยกันครับ.
