@@ -12,7 +12,9 @@ export async function POST(request: Request) {
         { status: 401 }
       );
     }
-    const accessToken = authorization.slice("Bearer ".length).trim();
+    const accessToken = authorization
+      .slice("Bearer ".length)
+      .trim();
     if (!accessToken) {
       return NextResponse.json(
         {
@@ -39,10 +41,7 @@ export async function POST(request: Request) {
       );
     }
     const piData = await piResponse.json();
-    if (
-      !piData?.user?.uid ||
-      !piData?.user?.username
-    ) {
+    if (!piData?.uid || !piData?.username) {
       return NextResponse.json(
         {
           success: false,
@@ -54,8 +53,8 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       user: {
-        uid: piData.user.uid,
-        username: piData.user.username,
+        uid: piData.uid,
+        username: piData.username,
       },
     });
   } catch (error) {
