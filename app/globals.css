@@ -20,16 +20,39 @@ body {
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: #f0fdf4;
+  /* Pi Purple → Market-NS Green */
+  background:
+    radial-gradient(
+      circle at 18% 20%,
+      rgba(124, 58, 237, 0.38),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 82% 80%,
+      rgba(22, 163, 74, 0.42),
+      transparent 44%
+    ),
+    linear-gradient(
+      135deg,
+      #6d28d9 0%,
+      #7c3aed 28%,
+      #22c55e 72%,
+      #15803d 100%
+    );
 }
 .entry-card {
   width: 100%;
   max-width: 448px;
-  padding: 24px;
-  border: 1px solid #dcfce7;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 24px;
+  /* Glass Card */
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 20px 50px rgba(31, 41, 55, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 .entry-brand {
   margin-bottom: 32px;
@@ -44,19 +67,20 @@ body {
 .entry-brand p {
   margin: 12px 0 0;
   font-size: 14px;
-  color: #4b5563;
+  color: #374151;
 }
 .entry-login h2 {
   margin: 0 0 8px;
   text-align: center;
   font-size: 20px;
   font-weight: 600;
+  color: #111827;
 }
 .entry-login > p {
   margin: 0 0 24px;
   text-align: center;
   font-size: 14px;
-  color: #6b7280;
+  color: #4b5563;
 }
 .pi-entry-button {
   display: block;
@@ -72,10 +96,14 @@ body {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
 }
 .pi-entry-button:hover {
   background: #166534;
+  box-shadow: 0 6px 18px rgba(21, 128, 61, 0.28);
 }
 .pi-entry-button:active {
   transform: scale(0.99);
@@ -85,7 +113,7 @@ body {
   text-align: center;
   font-size: 12px;
   line-height: 1.5;
-  color: #9ca3af;
+  color: #6b7280;
 }
 /* ================================
    HOME PAGE
