@@ -25,15 +25,38 @@ export default function PiEntryButton() {
       const authResult = await window.Pi.authenticate(
         ["username"],
         (payment) => {
-          console.warn("พบการชำระเงินที่ยังไม่เสร็จสมบูรณ์:", payment);
+          console.warn(
+            "พบการชำระเงินที่ยังไม่เสร็จสมบูรณ์:",
+            payment
+          );
         }
       );
       console.log("Pi Authentication สำเร็จ");
-      console.log("Pi UID:", authResult.user.uid);
-      console.log("Pi Username:", authResult.user.username);
-      console.log("Access Token:", authResult.accessToken);
+      const verifyResponse = await fetch(
+        "/api/v1/auth/pi/verify",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authResult.accessToken}`,
+          },
+        }
+      );
+      const verifyData = await verifyResponse.json();
+      if (!verifyResponse.ok || !verifyData?.success) {
+        console.error(
+          "Backend ตรวจสอบ Pi Authentication ไม่สำเร็จ:",
+          verifyData
+        );
+        return;
+      }
+      console.log("Backend ตรวจสอบ Pi Authentication สำเร็จ");
+      console.log("Verified Pi UID:", verifyData.user.uid);
+      console.log("Verified Pi Username:", verifyData.user.username);
     } catch (error) {
-      console.error("Pi Authentication ไม่สำเร็จ:", error);
+      console.error(
+        "Pi Authentication หรือ Backend Verification ไม่สำเร็จ:",
+        error
+      );
     }
   }
   return (
