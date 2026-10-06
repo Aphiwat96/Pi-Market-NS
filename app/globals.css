@@ -3,17 +3,17 @@ body {
   margin: 0;
   padding: 0;
 }
-
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #111827;
   background: #ffffff;
 }
-
+/* ================================
+   ENTRY PAGE
+   ================================ */
 .entry-page {
   min-height: 100vh;
   display: flex;
@@ -22,7 +22,6 @@ body {
   padding: 16px;
   background: #ffffff;
 }
-
 .entry-card {
   width: 100%;
   max-width: 448px;
@@ -32,48 +31,38 @@ body {
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
 .entry-brand {
   margin-bottom: 32px;
   text-align: center;
 }
-
 .entry-brand h1 {
   margin: 0;
   font-size: 30px;
   font-weight: 700;
   color: #15803d;
 }
-
 .entry-brand p {
   margin: 12px 0 0;
   font-size: 14px;
   color: #4b5563;
 }
-
 .entry-login h2 {
   margin: 0 0 8px;
   text-align: center;
   font-size: 20px;
   font-weight: 600;
 }
-
 .entry-login > p {
   margin: 0 0 24px;
   text-align: center;
   font-size: 14px;
   color: #6b7280;
 }
-
-.entry-information {
-  margin: 24px 0 0;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #9ca3af;
-}
 .pi-entry-button {
+  display: block;
   width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
   padding: 12px 20px;
   border: none;
   border-radius: 12px;
@@ -85,46 +74,49 @@ body {
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
-
 .pi-entry-button:hover {
   background: #166534;
 }
-
 .pi-entry-button:active {
   transform: scale(0.99);
 }
+.entry-information {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #9ca3af;
+}
+/* ================================
+   HOME PAGE
+   ================================ */
 .home-page {
   min-height: 100vh;
   padding-bottom: 80px;
   background: #ffffff;
   color: #111827;
 }
-
 .home-header {
   border-bottom: 1px solid #e5e7eb;
   background: #ffffff;
 }
-
 .home-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 16px;
 }
-
 .home-header h1 {
   margin: 0;
   font-size: 20px;
   font-weight: 700;
   color: #15803d;
 }
-
 .home-header-actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .home-icon-button {
   width: 40px;
   height: 40px;
@@ -134,11 +126,9 @@ body {
   color: #374151;
   cursor: pointer;
 }
-
 .home-search {
   padding: 16px 16px 0;
 }
-
 .home-search input {
   width: 100%;
   padding: 12px 16px;
@@ -149,22 +139,18 @@ body {
   font-size: 16px;
   outline: none;
 }
-
 .home-search input:focus {
   border-color: #16a34a;
 }
-
 .home-categories {
   padding: 20px 16px 0;
 }
-
 .home-categories h2,
 .home-products h2 {
   margin: 0 0 12px;
   font-size: 18px;
   font-weight: 700;
 }
-
 .category-list {
   display: flex;
   gap: 12px;
@@ -172,11 +158,9 @@ body {
   padding-bottom: 8px;
   scrollbar-width: none;
 }
-
 .category-list::-webkit-scrollbar {
   display: none;
 }
-
 .category-button {
   flex-shrink: 0;
   padding: 8px 16px;
@@ -188,24 +172,20 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
-
 .home-products {
   padding: 24px 16px;
 }
-
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
-
 .product-placeholder {
   aspect-ratio: 1 / 1;
   border: 1px dashed #d1d5db;
   border-radius: 12px;
   background: #f9fafb;
 }
-
 .home-bottom-nav {
   position: fixed;
   right: 0;
@@ -214,12 +194,10 @@ body {
   border-top: 1px solid #e5e7eb;
   background: #ffffff;
 }
-
 .home-bottom-nav-inner {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
-
 .nav-button {
   padding: 12px 4px;
   border: none;
@@ -228,12 +206,10 @@ body {
   text-align: center;
   cursor: pointer;
 }
-
 .nav-button span {
   font-size: 14px;
   font-weight: 500;
 }
-
 .nav-button.active {
   color: #15803d;
 }
