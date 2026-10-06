@@ -8,7 +8,7 @@ export default function PiEntryButton() {
     <button
       type="button"
       onClick={handlePiEntry}
-      className="w-full rounded-xl bg-green-700 px-5 py-3 text-center text-base font-semibold text-white transition hover:bg-green-800 active:scale-[0.99]"
+      className="pi-entry-button"
     >
       เข้าสู่ Pi Market-NS
     </button>
